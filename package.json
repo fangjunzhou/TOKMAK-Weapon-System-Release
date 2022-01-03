@@ -1,0 +1,17 @@
+{
+  "name": "com.fintokmak.weaponsystem",
+  "version": "0.0.1",
+  "displayName": "Weapon System",
+  "description": "An universal weapon system that can be used in FPS project and other shooter games.",
+  "unity": "2020.3",
+  "unityRelease": "0b5",
+  "license": "GPL",
+  "dependencies": {
+  },
+  "keywords": [
+  ],
+  "author": {
+    "name": "FinTOKMAK Studio",
+    "email": "fangjun.zhou02@gmail.com"
+  }
+}
