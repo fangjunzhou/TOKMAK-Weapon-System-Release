@@ -66,5 +66,10 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         /// Callback function called when the weapon trigger is up.
         /// </summary>
         void OnTriggerUp();
+
+        /// <summary>
+        /// Callback function called when the weapon is reload.
+        /// </summary>
+        void OnReload();
     }
 }
