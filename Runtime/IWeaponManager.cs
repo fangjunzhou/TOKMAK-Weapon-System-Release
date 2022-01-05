@@ -5,6 +5,29 @@ using System.Threading.Tasks;
 namespace FinTOKMAK.WeaponSystem.Runtime
 {
     /// <summary>
+    /// All the state current WeaponManager is in.
+    /// </summary>
+    public enum WeaponManagerState
+    {
+        /// <summary>
+        /// There's no weapon in hand.
+        /// </summary>
+        Empty,
+        /// <summary>
+        /// The manager is putting out weapon.
+        /// </summary>
+        PuttingOut,
+        /// <summary>
+        /// The manager is putting in weapon.
+        /// </summary>
+        PuttingIn,
+        /// <summary>
+        /// The manager is ready to fire.
+        /// </summary>
+        Ready
+    }
+    
+    /// <summary>
     /// The interface of WeaponManager
     /// </summary>
     public interface IWeaponManager
@@ -27,6 +50,11 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         /// All the weapon current manager is carrying.
         /// </summary>
         List<IWeapon> carryWeapons { get; }
+        
+        /// <summary>
+        /// The current state of WeaponManager
+        /// </summary>
+        WeaponManagerState state { get; }
 
         /// <summary>
         /// Put out a weapon using the weapon index in the carryWeapon list.
@@ -97,5 +125,10 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         /// The method to release the trigger.
         /// </summary>
         void TriggerUp();
+
+        /// <summary>
+        /// The method to reload current weapon.
+        /// </summary>
+        void Reload();
     }
 }
