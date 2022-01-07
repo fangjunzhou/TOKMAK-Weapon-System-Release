@@ -2,12 +2,22 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
+using Object = System.Object;
 
 namespace FinTOKMAK.WeaponSystem.Runtime
 {
     public class WeaponManager : MonoBehaviour, IWeaponManager
     {
         #region Public Field
+
+        /// <summary>
+        /// All the weapons that should be load in awake.
+        /// </summary>
+        public List<Weapon> preLoadWeapons;
+
+        #endregion
+
+        #region Hide Public Field
 
         public Action onInitialize
         {
@@ -71,8 +81,28 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         private WeaponManagerState _state;
 
         #endregion
-        
-        
+
+        private void Awake()
+        {
+            // Start initialization.
+            onInitialize?.Invoke();
+
+            // Load all the preLoadWeapons.
+            foreach (Weapon preLoadWeapon in preLoadWeapons)
+            {
+                // Instantiate the weapon.
+                Weapon weaponInstance = Instantiate(preLoadWeapon);
+                _carryWeapons.Add(weaponInstance);
+                // Initialize the weapon.
+                weaponInstance.OnInitialize();
+            }
+            
+            // Finish initialization.
+            onFinishInitialize?.Invoke();
+        }
+
+        #region IWeaponManager Interface
+
         public void PutOut(int index)
         {
             throw new NotImplementedException();
@@ -113,14 +143,26 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             _state = WeaponManagerState.Empty;
         }
 
-        public Task PutInAsync()
+        public async Task PutInAsync()
         {
-            throw new NotImplementedException();
+            _state = WeaponManagerState.PuttingIn;
+            
+            // Async put in.
+            await _currWeapon.OnPutInAsync();
+
+            // No weapon being used currently.
+            _currWeapon = null;
+            _state = WeaponManagerState.Empty;
         }
 
         public void TriggerDown()
         {
-            throw new NotImplementedException();
+            if (_currWeapon == null)
+            {
+                Debug.LogWarning("No weapon being used currently.");
+                return;
+            }
+            _currWeapon.OnTriggerDown();
         }
 
         public void TriggerUp()
@@ -132,5 +174,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         {
             throw new NotImplementedException();
         }
+
+        #endregion
     }
 }
