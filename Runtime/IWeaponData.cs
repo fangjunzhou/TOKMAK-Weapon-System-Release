@@ -23,6 +23,11 @@ namespace FinTOKMAK.WeaponSystem.Runtime
     public interface IWeaponData
     {
         /// <summary>
+        /// The ID of the WeaponData
+        /// </summary>
+        string id { get; }
+        
+        /// <summary>
         /// The WeaponDataType of current WeaponData class.
         /// </summary>
         public WeaponDataType weaponDataType { get; }

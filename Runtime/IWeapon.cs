@@ -13,6 +13,16 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         /// The unique id of the weapon.
         /// </summary>
         string id { get; }
+        
+        /// <summary>
+        /// The config data of the weapon.
+        /// </summary>
+        IWeaponData configData { get; }
+        
+        /// <summary>
+        /// The runtime data of the weapon.
+        /// </summary>
+        IWeaponData runtimeData { get; }
 
         #endregion
 
