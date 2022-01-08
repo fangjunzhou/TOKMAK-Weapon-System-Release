@@ -8,49 +8,47 @@ namespace FinTOKMAK.WeaponSystem.Runtime
     {
         public string id { get; }
         
-        public void OnInitialize()
+        public virtual void OnInitialize()
         {
-            throw new System.NotImplementedException();
+            
         }
 
-        public void OnUpdate()
+        public virtual void OnUpdate()
         {
-            throw new System.NotImplementedException();
+            
         }
 
-        public void OnPutOut()
+        public virtual void OnPutOut()
         {
-            throw new System.NotImplementedException();
+            
         }
 
-        public Task OnPutOutAsync()
+        public async Task OnPutOutAsync()
         {
-            throw new System.NotImplementedException();
         }
 
-        public void OnPutIn()
+        public virtual void OnPutIn()
         {
-            throw new System.NotImplementedException();
+            
         }
 
-        public Task OnPutInAsync()
+        public async Task OnPutInAsync()
         {
-            throw new System.NotImplementedException();
         }
 
-        public void OnTriggerDown()
+        public virtual void OnTriggerDown()
         {
-            throw new System.NotImplementedException();
+            
         }
 
-        public void OnTriggerUp()
+        public virtual void OnTriggerUp()
         {
-            throw new System.NotImplementedException();
+            
         }
 
-        public void OnReload()
+        public virtual void OnReload()
         {
-            throw new System.NotImplementedException();
+            
         }
     }
 }
