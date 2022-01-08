@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace FinTOKMAK.WeaponSystem.Runtime
 {
-    [CreateAssetMenu(fileName = "Weapon", menuName = "FinTOKMAK/Weapon System/Weapon", order = 0)]
     public class Weapon : ScriptableObject, IWeapon
     {
         public string id { get; }
@@ -25,6 +24,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 
         public async Task OnPutOutAsync()
         {
+            OnPutOut();
         }
 
         public virtual void OnPutIn()
@@ -34,6 +34,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 
         public async Task OnPutInAsync()
         {
+            OnPutIn();
         }
 
         public virtual void OnTriggerDown()
