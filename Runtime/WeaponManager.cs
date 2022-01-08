@@ -69,7 +69,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         /// <summary>
         /// All the weapons current WeaponManager is carrying.
         /// </summary>
-        private List<Weapon> _carryWeapons;
+        private List<Weapon> _carryWeapons = new List<Weapon>();
 
         /// <summary>
         /// The weapon player is currently using.
@@ -203,6 +203,12 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 
         public void PutIn()
         {
+            if (_currWeapon == null)
+            {
+                Debug.LogWarning("No weapon being used currently.");
+                return;
+            }
+            
             // Put in current weapon.
             _currWeapon.OnPutIn();
 
@@ -213,6 +219,12 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 
         public async Task PutInAsync()
         {
+            if (_currWeapon == null)
+            {
+                Debug.LogWarning("No weapon being used currently.");
+                return;
+            }
+            
             _state = WeaponManagerState.PuttingIn;
             
             // Async put in.
