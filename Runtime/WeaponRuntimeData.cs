@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace FinTOKMAK.WeaponSystem.Runtime
 {
-    [CreateAssetMenu(fileName = "Weapon Runtime Data", menuName = "FinTOKMAK/Weapon System/Weapon Data/Runtime Data", order = 0)]
     public class WeaponRuntimeData : ScriptableObject, IWeaponData
     {
         #region Public Field

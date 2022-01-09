@@ -19,8 +19,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 
         [SerializeField]
         private WeaponConfigData _configData;
-
-        [SerializeField]
+        
         private WeaponRuntimeData _runtimeData;
 
         #endregion
