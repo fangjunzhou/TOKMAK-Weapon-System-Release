@@ -7,7 +7,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
     {
         #region Hide Public Field
 
-        public string id { get; }
+        public string id => _configData.id;
 
         public IWeaponData configData => _configData;
 
