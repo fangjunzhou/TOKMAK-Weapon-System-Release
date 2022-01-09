@@ -115,6 +115,18 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 
         public void PutOut(int index)
         {
+            // Handle the index out of range exception.
+            if (index < 0 || index >= _carryWeapons.Count)
+            {
+                throw new IndexOutOfRangeException("The index of weapon is out of the range of carry weapons.");
+            }
+            
+            // When the weapon is already in use, refuse to put the weapon out.
+            if (_currWeapon != null && _currWeapon.id == _carryWeapons[index].id)
+            {
+                throw new InvalidOperationException("Weapon already in use.");
+            }
+            
             // If there's still using weapon.
             if (_currWeapon != null)
             {
@@ -159,6 +171,19 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 
         public async Task PutOutAsync(int index)
         {
+            // Handle the index out of range exception.
+            if (index < 0 || index >= _carryWeapons.Count)
+            {
+                throw new IndexOutOfRangeException("The index of weapon is out of the range of carry weapons.");
+            }
+            
+            // When the weapon is already in use, refuse to put the weapon out.
+            if (_currWeapon != null && _currWeapon.id == _carryWeapons[index].id)
+            {
+                Debug.LogWarning("Weapon already in use.");
+                return;
+            }
+            
             // If there's still using weapon.
             if (_currWeapon != null)
             {
