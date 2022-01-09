@@ -2,7 +2,8 @@
     "name": "FinTOKMAK.WeaponSystem.Runtime",
     "rootNamespace": "",
     "references": [
-        "GUID:a65d9a73e86e8a16094732b640e510ef"
+        "GUID:a65d9a73e86e8a16094732b640e510ef",
+        "GUID:d1b25efafe16b8240b25181c1d067da9"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
