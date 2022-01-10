@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using FinTOKMAK.TimelineSystem.Runtime;
 
 namespace FinTOKMAK.WeaponSystem.Runtime
 {
@@ -23,6 +24,21 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         /// The runtime data of the weapon.
         /// </summary>
         IWeaponData runtimeData { get; }
+        
+        /// <summary>
+        /// The weapon manager carrying the current Weapon.
+        /// </summary>
+        IWeaponManager weaponManager { get; set; }
+        
+        /// <summary>
+        /// The TimelineSystem with the WeaponManager.
+        /// </summary>
+        TimelineSystem.Runtime.TimelineSystem timelineSystem { get; set; }
+        
+        /// <summary>
+        /// The TimelineEventManager used by the Timeline System.
+        /// </summary>
+        TimelineEventManager timelineEventManager { get; set; }
 
         #endregion
 

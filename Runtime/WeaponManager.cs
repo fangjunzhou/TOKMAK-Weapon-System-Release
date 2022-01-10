@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FinTOKMAK.TimelineSystem.Runtime;
 using UnityEngine;
 
 namespace FinTOKMAK.WeaponSystem.Runtime
@@ -15,6 +16,11 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         /// The timeline system to play all the timeline.
         /// </summary>
         private TimelineSystem.Runtime.TimelineSystem _timelineSystem;
+
+        /// <summary>
+        /// The TimelineEventManager used by the TimelineSystem.
+        /// </summary>
+        private TimelineEventManager _timelineEventManager;
 
         #endregion
         
@@ -94,6 +100,10 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 
         private void Awake()
         {
+            // Initialize all the private variables.
+            _timelineSystem = gameObject.GetComponent<TimelineSystem.Runtime.TimelineSystem>();
+            _timelineEventManager = gameObject.GetComponent<TimelineEventManager>();
+            
             // Start initialization.
             onInitialize?.Invoke();
 
@@ -103,6 +113,12 @@ namespace FinTOKMAK.WeaponSystem.Runtime
                 // Instantiate the weapon.
                 Weapon weaponInstance = Instantiate(preLoadWeapon);
                 _carryWeapons.Add(weaponInstance);
+                
+                // Set the WeaponManager and TimelineSystem to the Weapon.
+                weaponInstance.weaponManager = this;
+                weaponInstance.timelineSystem = _timelineSystem;
+                weaponInstance.timelineEventManager = _timelineEventManager;
+
                 // Initialize the weapon.
                 weaponInstance.OnInitialize();
             }

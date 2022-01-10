@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using FinTOKMAK.TimelineSystem.Runtime;
 using UnityEngine;
 
 namespace FinTOKMAK.WeaponSystem.Runtime
@@ -13,17 +14,40 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 
         public IWeaponData runtimeData => _runtimeData;
 
+        public IWeaponManager weaponManager
+        {
+            get => _weaponManager;
+            set => _weaponManager = (WeaponManager)value;
+        }
+
+        public TimelineSystem.Runtime.TimelineSystem timelineSystem
+        {
+            get => _timelineSystem;
+            set => _timelineSystem = value;
+        }
+
+        public TimelineEventManager timelineEventManager
+        {
+            get => _timelineEventManager;
+            set => _timelineEventManager = value;
+        }
+
         #endregion
 
         #region Private Field
 
         #region Weapon Data
-
         
         [SerializeField]
         private WeaponConfigData _configData;
         
         private WeaponRuntimeData _runtimeData;
+        
+        private WeaponManager _weaponManager;
+
+        private TimelineSystem.Runtime.TimelineSystem _timelineSystem;
+
+        private TimelineEventManager _timelineEventManager;
 
         #endregion
 
