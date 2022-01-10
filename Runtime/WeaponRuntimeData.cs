@@ -5,24 +5,29 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 {
     public class WeaponRuntimeData : ScriptableObject, IWeaponData
     {
-        #region Public Field
+        #region Private Field
 
         /// <summary>
         /// The id of the
         /// </summary>
-        public string _id;
+        [SerializeField]
+        private string _id;
 
         #endregion
         
         #region IWeaponData Interface
 
-        public string id => _id;
+        public string id
+        {
+            get => _id;
+            set => _id = value;
+        }
 
         public WeaponDataType weaponDataType => WeaponDataType.Runtime;
 
         public IWeaponData DeepCopy()
         {
-            return ScriptableObject.CreateInstance<WeaponRuntimeData>();
+            return ScriptableObject.Instantiate(this);
         }
 
         public IWeaponData ToRuntime()

@@ -25,7 +25,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         /// <summary>
         /// The ID of the WeaponData
         /// </summary>
-        string id { get; }
+        string id { get; set; }
         
         /// <summary>
         /// The WeaponDataType of current WeaponData class.
