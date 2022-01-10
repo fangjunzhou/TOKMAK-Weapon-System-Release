@@ -3,12 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
-using Object = System.Object;
 
 namespace FinTOKMAK.WeaponSystem.Runtime
 {
+    [RequireComponent(typeof(TimelineSystem.Runtime.TimelineSystem))]
     public class WeaponManager : MonoBehaviour, IWeaponManager
     {
+        #region Private Field
+
+        /// <summary>
+        /// The timeline system to play all the timeline.
+        /// </summary>
+        private TimelineSystem.Runtime.TimelineSystem _timelineSystem;
+
+        #endregion
+        
         #region Public Field
 
         /// <summary>

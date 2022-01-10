@@ -17,6 +17,9 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 
         #region Private Field
 
+        #region Weapon Data
+
+        
         [SerializeField]
         private WeaponConfigData _configData;
         
@@ -24,9 +27,12 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 
         #endregion
 
+        #endregion
+
         public virtual void OnInitialize()
         {
-            
+            // Convert the WeaponConfigData to the WeaponRuntimeData
+            _runtimeData = (WeaponRuntimeData) _configData.ToRuntime();
         }
 
         public virtual void OnUpdate()
