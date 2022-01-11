@@ -127,8 +127,24 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         void TriggerUp();
 
         /// <summary>
-        /// The method to reload current weapon.
+        /// The method called to press down the reload key.
+        /// Often start the reload process.
         /// </summary>
-        void Reload();
+        void ReloadDown();
+
+        /// <summary>
+        /// The method to release the reload key.
+        /// </summary>
+        void ReloadUp();
+
+        /// <summary>
+        /// The method to start aiming the current weapon.
+        /// </summary>
+        void StartAim();
+
+        /// <summary>
+        /// The method to stop aiming the current weapon.
+        /// </summary>
+        void StopAim();
     }
 }

@@ -305,14 +305,44 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             _currWeapon.OnTriggerUp();
         }
 
-        public void Reload()
+        public void ReloadDown()
         {
             if (_currWeapon == null)
             {
                 Debug.LogWarning("No weapon being used currently.");
                 return;
             }
-            _currWeapon.OnReload();
+            _currWeapon.OnReloadDown();
+        }
+
+        public void ReloadUp()
+        {
+            if (_currWeapon == null)
+            {
+                Debug.LogWarning("No weapon being used currently.");
+                return;
+            }
+            _currWeapon.OnReloadUp();
+        }
+
+        public void StartAim()
+        {
+            if (_currWeapon == null)
+            {
+                Debug.LogWarning("No weapon being used currently.");
+                return;
+            }
+            _currWeapon.OnAimStart();
+        }
+
+        public void StopAim()
+        {
+            if (_currWeapon == null)
+            {
+                Debug.LogWarning("No weapon being used currently.");
+                return;
+            }
+            _currWeapon.OnAimStopped();
         }
 
         #endregion

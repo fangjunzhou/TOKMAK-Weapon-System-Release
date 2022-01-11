@@ -107,8 +107,23 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         void OnTriggerUp();
 
         /// <summary>
-        /// Callback function called when the weapon is reload.
+        /// Callback function called when the weapon reload key is pressed down.
         /// </summary>
-        void OnReload();
+        void OnReloadDown();
+
+        /// <summary>
+        /// Callback function called when the weapon reload key is up.
+        /// </summary>
+        void OnReloadUp();
+
+        /// <summary>
+        /// The callback function called when the player start aiming.
+        /// </summary>
+        void OnAimStart();
+
+        /// <summary>
+        /// The callback function called when the player stop aiming.
+        /// </summary>
+        void OnAimStopped();
     }
 }

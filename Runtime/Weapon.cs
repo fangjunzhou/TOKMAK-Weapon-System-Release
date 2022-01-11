@@ -135,18 +135,27 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 
         #endregion
 
+        #region Life Cycle
+
         public virtual void OnInitialize()
         {
+            InitTSC();
+            
             // Convert the WeaponConfigData to the WeaponRuntimeData
             _runtimeData = (WeaponRuntimeData) _configData.ToRuntime();
 
-            InitTSC();
+            // Change the using status.
+            _runtimeData.usingStatus = WeaponUsingStatus.Background;
         }
 
         public virtual void OnUpdate()
         {
             
         }
+
+        #endregion
+
+        #region Put In And Put Out
 
         public virtual void OnPutOut()
         {
@@ -155,6 +164,9 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             
             // Play the put out timeline.
             _timelineSystem.PlayTimeline(_runtimeData.putoutTimline);
+            
+            // Change the using status.
+            _runtimeData.usingStatus = WeaponUsingStatus.Using;
         }
         
         public virtual void OnFinishPutOut()
@@ -185,6 +197,9 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         {
             // Unregister event listening
             UnregisterTimelineEvents();
+            
+            // Change the using status.
+            _runtimeData.usingStatus = WeaponUsingStatus.Background;
         }
 
         public async Task OnPutInAsync()
@@ -200,6 +215,10 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             OnFinishPutIn();
         }
 
+        #endregion
+
+        #region Weapon Operation
+
         public virtual void OnTriggerDown()
         {
             
@@ -210,9 +229,26 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             
         }
 
-        public virtual void OnReload()
+        public virtual void OnReloadDown()
         {
             
         }
+
+        public virtual void OnReloadUp()
+        {
+            
+        }
+
+        public virtual void OnAimStart()
+        {
+            
+        }
+
+        public virtual void OnAimStopped()
+        {
+            
+        }
+
+        #endregion
     }
 }
