@@ -63,6 +63,12 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         void OnPutOut();
 
         /// <summary>
+        /// The callback function called when the weapon finish put out.
+        /// This method should enable the weapon fire status and restore some data.
+        /// </summary>
+        void OnFinishPutOut();
+
+        /// <summary>
         /// The async method to put out weapon.
         /// Called when the weapon is put out.
         /// Finish the async when the put out process complete (finish put out animation).
@@ -72,8 +78,15 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 
         /// <summary>
         /// The callback method called when the weapon is put in.
+        /// This method should disable some weapon function such as reload and fire.
         /// </summary>
         void OnPutIn();
+
+        /// <summary>
+        /// The callback method called when the weapon finish put in.
+        /// This method should store some weapon state.
+        /// </summary>
+        void OnFinishPutIn();
 
         /// <summary>
         /// The async method to put in weapon.
