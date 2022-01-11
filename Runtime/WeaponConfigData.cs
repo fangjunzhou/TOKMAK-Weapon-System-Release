@@ -6,7 +6,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
     [CreateAssetMenu(fileName = "Weapon Config Data", menuName = "FinTOKMAK/Weapon System/Weapon Data/Config Data", order = 0)]
     public class WeaponConfigData : ScriptableObject, IWeaponData
     {
-        #region Private Field
+        #region Serialized Private Field
 
         /// <summary>
         /// The id of the weapon.

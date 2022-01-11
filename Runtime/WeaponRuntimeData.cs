@@ -4,9 +4,37 @@ using UnityEngine;
 
 namespace FinTOKMAK.WeaponSystem.Runtime
 {
+    /// <summary>
+    /// The weapon usage status.
+    /// </summary>
+    public enum WeaponUsingStatus
+    {
+        /// <summary>
+        /// The weapon is currently being used.
+        /// </summary>
+        Using,
+        /// <summary>
+        /// The weapon is not being used by the WeaponManager, buy carried by the manager.
+        /// </summary>
+        Background,
+        /// <summary>
+        /// The weapon is not carried by any WeaponManager.
+        /// </summary>
+        Abandoned
+    }
+    
     public class WeaponRuntimeData : ScriptableObject, IWeaponData
     {
         #region Private Field
+
+        /// <summary>
+        /// The current weapon using status.
+        /// </summary>
+        private WeaponUsingStatus _usingStatus;
+
+        #endregion
+        
+        #region Serialized Private Field
 
         /// <summary>
         /// The id of the
@@ -33,6 +61,15 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         #endregion
 
         #region Public Field
+
+        /// <summary>
+        /// The current weapon using status.
+        /// </summary>
+        public WeaponUsingStatus usingStatus
+        {
+            get => _usingStatus;
+            set => _usingStatus = value;
+        }
 
         /// <summary>
         /// The timeline played when put out the weapon.
