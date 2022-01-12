@@ -8,7 +8,7 @@ using UnityEngine;
 namespace FinTOKMAK.WeaponSystem.Runtime
 {
     [RequireComponent(typeof(TimelineSystem.Runtime.TimelineSystem))]
-    public class WeaponManager : MonoBehaviour, IWeaponManager<Weapon>
+    public class WeaponManager<ConfigType, RuntimeType> : MonoBehaviour, IWeaponManager<Weapon<ConfigType, RuntimeType>> where ConfigType : WeaponConfigData where RuntimeType : WeaponRuntimeData
     {
         #region Private Field
 
@@ -35,12 +35,12 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         /// <summary>
         /// All the weapons current WeaponManager is carrying.
         /// </summary>
-        private List<Weapon> _carryWeapons = new List<Weapon>();
+        private List<Weapon<ConfigType, RuntimeType>> _carryWeapons = new List<Weapon<ConfigType, RuntimeType>>();
 
         /// <summary>
         /// The weapon player is currently using.
         /// </summary>
-        private Weapon _currWeapon;
+        private Weapon<ConfigType, RuntimeType> _currWeapon;
 
         /// <summary>
         /// The current WeaponManager's state.
@@ -55,7 +55,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         /// All the weapons that should be load in awake.
         /// </summary>
         [SerializeField]
-        private List<Weapon> _preLoadWeapons;
+        private List<Weapon<ConfigType, RuntimeType>> _preLoadWeapons;
 
         /// <summary>
         /// The dictionary that stores all the mount points that can mount weapon instance.
@@ -73,9 +73,9 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 
         public WeaponMountPointDict weaponMountPoint => _weaponMountPoint;
 
-        public List<Weapon> carryWeapons => _carryWeapons;
+        public List<Weapon<ConfigType, RuntimeType>> carryWeapons => _carryWeapons;
 
-        public Weapon currWeapon => _currWeapon;
+        public Weapon<ConfigType, RuntimeType> currWeapon => _currWeapon;
 
         public WeaponManagerState state => _state;
 
@@ -91,7 +91,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             onInitialize?.Invoke();
 
             // Load all the preLoadWeapons.
-            foreach (Weapon preLoadWeapon in _preLoadWeapons)
+            foreach (Weapon<ConfigType, RuntimeType> preLoadWeapon in _preLoadWeapons)
             {
                 AddWeapon(preLoadWeapon);
             }
@@ -113,20 +113,20 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 
         #region Weapon Add & Remove
 
-        public void AddWeapon(Weapon weapon)
+        public void AddWeapon(Weapon<ConfigType, RuntimeType> weapon)
         {
             int index = _carryWeapons.Count;
             AddWeapon(weapon, index);
         }
 
-        public void AddWeapon(Weapon weapon, int index)
+        public void AddWeapon(Weapon<ConfigType, RuntimeType> weapon, int index)
         {
-            if (!(weapon is Weapon weapon1))
+            if (!(weapon is Weapon<ConfigType, RuntimeType> weapon1))
             {
                 throw new InvalidCastException($"{weapon} is not a Weapon instance.");
             }
 
-            Weapon weaponInstance = Instantiate(weapon1);
+            Weapon<ConfigType, RuntimeType> weaponInstance = Instantiate(weapon1);
             _carryWeapons.Insert(index, weaponInstance);
                 
             // Set the WeaponManager and TimelineSystem to the Weapon.
@@ -138,7 +138,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             weaponInstance.OnInitialize();
         }
 
-        public Weapon RemoveWeapon(int index)
+        public Weapon<ConfigType, RuntimeType> RemoveWeapon(int index)
         {
             // Check the index range.
             if (index < 0 || index >= carryWeapons.Count)
@@ -146,12 +146,12 @@ namespace FinTOKMAK.WeaponSystem.Runtime
                 throw new IndexOutOfRangeException("The index of weapon is out of the range of carry weapons.");
             }
 
-            Weapon removedWeapon = _carryWeapons[index];
+            Weapon<ConfigType, RuntimeType> removedWeapon = _carryWeapons[index];
             _carryWeapons.RemoveAt(index);
             return removedWeapon;
         }
 
-        public Weapon RemoveWeapon(string id)
+        public Weapon<ConfigType, RuntimeType> RemoveWeapon(string id)
         {
             for (int i = 0; i < _carryWeapons.Count; i++)
             {
@@ -212,13 +212,13 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             throw new InvalidOperationException($"No weapon with name {id}");
         }
 
-        public void PutOut(Weapon weapon)
+        public void PutOut(Weapon<ConfigType, RuntimeType> weapon)
         {
             if (!_carryWeapons.Contains(weapon))
                 throw new InvalidOperationException($"No weapon {weapon}");
 
             // Try to cast IWeapon to Weapon.
-            if (!(weapon is Weapon weapon1))
+            if (!(weapon is Weapon<ConfigType, RuntimeType> weapon1))
                 throw new InvalidCastException($"{weapon} is not a Weapon instance.");
             
             PutOut(_carryWeapons.IndexOf(weapon1));
@@ -269,13 +269,13 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             throw new InvalidOperationException($"No weapon with name {id}");
         }
 
-        public async Task PutOutAsync(Weapon weapon)
+        public async Task PutOutAsync(Weapon<ConfigType, RuntimeType> weapon)
         {
             if (!_carryWeapons.Contains(weapon))
                 throw new InvalidOperationException($"No weapon {weapon}");
 
             // Try to cast IWeapon to Weapon.
-            if (!(weapon is Weapon weapon1))
+            if (!(weapon is Weapon<ConfigType, RuntimeType> weapon1))
                 throw new InvalidCastException($"{weapon} is not a Weapon instance.");
             
             await PutOutAsync(_carryWeapons.IndexOf(weapon1));

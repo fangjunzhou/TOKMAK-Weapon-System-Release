@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace FinTOKMAK.WeaponSystem.Runtime
 {
-    public class Weapon : ScriptableObject, IWeapon<Weapon>
+    public class Weapon<ConfigType, RuntimeType> : ScriptableObject, IWeapon<Weapon<ConfigType, RuntimeType>> where ConfigType : WeaponConfigData where RuntimeType : WeaponRuntimeData
     {
         #region Hide Public Field
 
@@ -16,10 +16,10 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 
         public IWeaponData runtimeData => _runtimeData;
 
-        public IWeaponManager<Weapon> weaponManager
+        public IWeaponManager<Weapon<ConfigType, RuntimeType>> weaponManager
         {
             get => _weaponManager;
-            set => _weaponManager = (WeaponManager)value;
+            set => _weaponManager = (WeaponManager<ConfigType, RuntimeType>)value;
         }
 
         public TimelineSystem.Runtime.TimelineSystem timelineSystem
@@ -41,11 +41,11 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         #region Weapon Data
         
         [SerializeField]
-        private WeaponConfigData _configData;
+        protected ConfigType _configData;
         
-        private WeaponRuntimeData _runtimeData;
+        protected RuntimeType _runtimeData;
         
-        private WeaponManager _weaponManager;
+        private WeaponManager<ConfigType, RuntimeType> _weaponManager;
 
         private TimelineSystem.Runtime.TimelineSystem _timelineSystem;
 
@@ -143,7 +143,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             InitTSC();
             
             // Convert the WeaponConfigData to the WeaponRuntimeData
-            _runtimeData = (WeaponRuntimeData) _configData.ToRuntime();
+            _runtimeData = (RuntimeType) _configData.ToRuntime();
 
             // Change the using status.
             _runtimeData.usingStatus = WeaponUsingStatus.Background;
