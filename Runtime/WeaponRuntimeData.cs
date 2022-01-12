@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using FinTOKMAK.TimelineSystem.Runtime;
 using UnityEngine;
 
@@ -23,7 +24,8 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         Abandoned
     }
     
-    public class WeaponRuntimeData : ScriptableObject, IWeaponData
+    [System.Serializable]
+    public class WeaponRuntimeData : ScriptableObject, IWeaponData, ISerializable
     {
         #region Private Field
 
@@ -87,6 +89,30 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         {
             get => _putinTimline;
             set => _putinTimline = value;
+        }
+
+        #endregion
+        
+        #region ISerializable
+
+        /// <summary>
+        /// The constructor used by ISerializable
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="context"></param>
+        public WeaponRuntimeData(SerializationInfo info, StreamingContext context)
+        {
+            DeserializeObjectData(info, context);
+        }
+
+        public virtual void DeserializeObjectData(SerializationInfo info, StreamingContext context)
+        {
+            _id = (string) info.GetValue("id", typeof(string));
+        }
+
+        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            info.AddValue("id", _id, typeof(string));
         }
 
         #endregion
