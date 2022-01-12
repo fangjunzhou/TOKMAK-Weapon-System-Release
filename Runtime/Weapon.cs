@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using FinTOKMAK.EventSystem.Runtime;
 using FinTOKMAK.TimelineSystem.Runtime;
 using UnityEngine;
@@ -218,6 +219,15 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         #endregion
 
         #region Weapon Operation
+
+        public void Mount(GameObject instance, string mountPoint)
+        {
+            if (!_weaponManager.weaponMountPoint.ContainsKey(mountPoint))
+            {
+                throw new InvalidOperationException($"No mount point name {mountPoint}");
+            }
+            instance.transform.SetParent(_weaponManager.weaponMountPoint[mountPoint]);
+        }
 
         public virtual void OnTriggerDown()
         {

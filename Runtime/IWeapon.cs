@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using FinTOKMAK.TimelineSystem.Runtime;
+using UnityEngine;
 
 namespace FinTOKMAK.WeaponSystem.Runtime
 {
@@ -55,6 +56,13 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         void OnUpdate();
 
         #endregion
+
+        /// <summary>
+        /// Mount the weapon instance to a certain mount point.
+        /// </summary>
+        /// <param name="instance">The weapon instance GameObject.</param>
+        /// <param name="mountPoint">The name of the mount point.</param>
+        void Mount(GameObject instance, string mountPoint);
         
         /// <summary>
         /// The callback function called when the weapon is put out.
