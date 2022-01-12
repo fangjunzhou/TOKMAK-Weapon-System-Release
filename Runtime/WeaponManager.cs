@@ -110,17 +110,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             // Load all the preLoadWeapons.
             foreach (Weapon preLoadWeapon in preLoadWeapons)
             {
-                // Instantiate the weapon.
-                Weapon weaponInstance = Instantiate(preLoadWeapon);
-                _carryWeapons.Add(weaponInstance);
-                
-                // Set the WeaponManager and TimelineSystem to the Weapon.
-                weaponInstance.weaponManager = this;
-                weaponInstance.timelineSystem = _timelineSystem;
-                weaponInstance.timelineEventManager = _timelineEventManager;
-
-                // Initialize the weapon.
-                weaponInstance.OnInitialize();
+                AddWeapon(preLoadWeapon);
             }
             
             // Finish initialization.
@@ -137,6 +127,63 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         }
 
         #region IWeaponManager Interface
+
+        #region Weapon Add & Remove
+
+        public void AddWeapon(IWeapon weapon)
+        {
+            int index = _carryWeapons.Count;
+            AddWeapon(weapon, index);
+        }
+
+        public void AddWeapon(IWeapon weapon, int index)
+        {
+            if (!(weapon is Weapon weapon1))
+            {
+                throw new InvalidCastException($"{weapon} is not a Weapon instance.");
+            }
+
+            Weapon weaponInstance = Instantiate(weapon1);
+            _carryWeapons.Insert(index, weaponInstance);
+                
+            // Set the WeaponManager and TimelineSystem to the Weapon.
+            weaponInstance.weaponManager = this;
+            weaponInstance.timelineSystem = _timelineSystem;
+            weaponInstance.timelineEventManager = _timelineEventManager;
+
+            // Initialize the weapon.
+            weaponInstance.OnInitialize();
+        }
+
+        public IWeapon RemoveWeapon(int index)
+        {
+            // Check the index range.
+            if (index < 0 || index >= carryWeapons.Count)
+            {
+                throw new IndexOutOfRangeException("The index of weapon is out of the range of carry weapons.");
+            }
+
+            Weapon removedWeapon = _carryWeapons[index];
+            _carryWeapons.RemoveAt(index);
+            return removedWeapon;
+        }
+
+        public IWeapon RemoveWeapon(string id)
+        {
+            for (int i = 0; i < _carryWeapons.Count; i++)
+            {
+                if (_carryWeapons[i].id == id)
+                {
+                    return RemoveWeapon(i);
+                }
+            }
+
+            throw new InvalidOperationException($"No weapon named {id} in the carry weapons.");
+        }
+
+        #endregion
+
+        #region Put Out & Put In
 
         public void PutOut(int index)
         {
@@ -285,6 +332,10 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             _state = WeaponManagerState.Empty;
         }
 
+        #endregion
+
+        #region Weapon Operation
+
         public void TriggerDown()
         {
             if (_currWeapon == null)
@@ -344,6 +395,8 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             }
             _currWeapon.OnAimStopped();
         }
+
+        #endregion
 
         #endregion
     }

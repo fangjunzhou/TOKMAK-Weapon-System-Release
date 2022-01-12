@@ -57,6 +57,33 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         WeaponManagerState state { get; }
 
         /// <summary>
+        /// Add a new weapon to the last of carry weapon list.
+        /// </summary>
+        /// <param name="weapon">The IWeapon instance to add.</param>
+        void AddWeapon(IWeapon weapon);
+
+        /// <summary>
+        /// Add a new weapon to the carry weapon list.
+        /// </summary>
+        /// <param name="weapon">The IWeapon instance to add.</param>
+        /// <param name="index">The index to add the new weapon.</param>
+        void AddWeapon(IWeapon weapon, int index);
+
+        /// <summary>
+        /// Remove a exist weapon from the carry weapon list.
+        /// </summary>
+        /// <param name="index">The index of the weapon to remove.</param>
+        /// <returns>The removed IWeapon instance.</returns>
+        IWeapon RemoveWeapon(int index);
+
+        /// <summary>
+        /// Remove a exist weapon from the carry weapon list.
+        /// </summary>
+        /// <param name="id">The id of the weapon to remove.</param>
+        /// <returns>The removed IWeapon instance.</returns>
+        IWeapon RemoveWeapon(string id);
+
+        /// <summary>
         /// Put out a weapon using the weapon index in the carryWeapon list.
         /// When there's no weapon in the hand, the WeaponManager will put out weapon directly.
         /// When there's already a weapon in hand, the WeaponManager will put in current using weapon first,
