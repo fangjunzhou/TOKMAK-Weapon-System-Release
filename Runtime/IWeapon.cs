@@ -6,7 +6,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
     /// <summary>
     /// The interface for Weapon class
     /// </summary>
-    public interface IWeapon
+    public interface IWeapon<WeaponType> where WeaponType : IWeapon<WeaponType>
     {
         #region Property
 
@@ -28,7 +28,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         /// <summary>
         /// The weapon manager carrying the current Weapon.
         /// </summary>
-        IWeaponManager weaponManager { get; set; }
+        IWeaponManager<WeaponType> weaponManager { get; set; }
         
         /// <summary>
         /// The TimelineSystem with the WeaponManager.

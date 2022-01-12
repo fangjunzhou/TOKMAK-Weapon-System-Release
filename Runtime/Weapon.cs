@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace FinTOKMAK.WeaponSystem.Runtime
 {
-    public class Weapon : ScriptableObject, IWeapon
+    public class Weapon : ScriptableObject, IWeapon<Weapon>
     {
         #region Hide Public Field
 
@@ -15,7 +15,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 
         public IWeaponData runtimeData => _runtimeData;
 
-        public IWeaponManager weaponManager
+        public IWeaponManager<Weapon> weaponManager
         {
             get => _weaponManager;
             set => _weaponManager = (WeaponManager)value;

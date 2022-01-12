@@ -30,7 +30,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
     /// <summary>
     /// The interface of WeaponManager
     /// </summary>
-    public interface IWeaponManager
+    public interface IWeaponManager<WeaponType> where WeaponType : IWeapon<WeaponType>
     {
         #region Events
 
@@ -49,7 +49,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         /// <summary>
         /// All the weapon current manager is carrying.
         /// </summary>
-        List<IWeapon> carryWeapons { get; }
+        List<WeaponType> carryWeapons { get; }
         
         /// <summary>
         /// The current state of WeaponManager
@@ -60,28 +60,28 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         /// Add a new weapon to the last of carry weapon list.
         /// </summary>
         /// <param name="weapon">The IWeapon instance to add.</param>
-        void AddWeapon(IWeapon weapon);
+        void AddWeapon(WeaponType weapon);
 
         /// <summary>
         /// Add a new weapon to the carry weapon list.
         /// </summary>
         /// <param name="weapon">The IWeapon instance to add.</param>
         /// <param name="index">The index to add the new weapon.</param>
-        void AddWeapon(IWeapon weapon, int index);
+        void AddWeapon(WeaponType weapon, int index);
 
         /// <summary>
         /// Remove a exist weapon from the carry weapon list.
         /// </summary>
         /// <param name="index">The index of the weapon to remove.</param>
         /// <returns>The removed IWeapon instance.</returns>
-        IWeapon RemoveWeapon(int index);
+        WeaponType RemoveWeapon(int index);
 
         /// <summary>
         /// Remove a exist weapon from the carry weapon list.
         /// </summary>
         /// <param name="id">The id of the weapon to remove.</param>
         /// <returns>The removed IWeapon instance.</returns>
-        IWeapon RemoveWeapon(string id);
+        WeaponType RemoveWeapon(string id);
 
         /// <summary>
         /// Put out a weapon using the weapon index in the carryWeapon list.
@@ -108,7 +108,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         /// then put out the target weapon.
         /// </summary>
         /// <param name="weapon">the weapon to put out.</param>
-        void PutOut(IWeapon weapon);
+        void PutOut(WeaponType weapon);
 
         /// <summary>
         /// The async version of method <see cref="PutOut(int)"/>
@@ -129,7 +129,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         /// </summary>
         /// <param name="weapon">the weapon to put out.</param>
         /// <returns>Async Task</returns>
-        Task PutOutAsync(IWeapon weapon);
+        Task PutOutAsync(WeaponType weapon);
 
         /// <summary>
         /// Put in the current weapon.

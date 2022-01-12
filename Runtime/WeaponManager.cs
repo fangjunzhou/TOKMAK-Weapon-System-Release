@@ -8,7 +8,7 @@ using UnityEngine;
 namespace FinTOKMAK.WeaponSystem.Runtime
 {
     [RequireComponent(typeof(TimelineSystem.Runtime.TimelineSystem))]
-    public class WeaponManager : MonoBehaviour, IWeaponManager
+    public class WeaponManager : MonoBehaviour, IWeaponManager<Weapon>
     {
         #region Private Field
 
@@ -51,11 +51,11 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             }
         }
 
-        public List<IWeapon> carryWeapons
+        public List<Weapon> carryWeapons
         {
             get
             {
-                return _carryWeapons.Cast<IWeapon>().ToList();
+                return _carryWeapons;
             }
         }
 
@@ -130,13 +130,13 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 
         #region Weapon Add & Remove
 
-        public void AddWeapon(IWeapon weapon)
+        public void AddWeapon(Weapon weapon)
         {
             int index = _carryWeapons.Count;
             AddWeapon(weapon, index);
         }
 
-        public void AddWeapon(IWeapon weapon, int index)
+        public void AddWeapon(Weapon weapon, int index)
         {
             if (!(weapon is Weapon weapon1))
             {
@@ -155,7 +155,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             weaponInstance.OnInitialize();
         }
 
-        public IWeapon RemoveWeapon(int index)
+        public Weapon RemoveWeapon(int index)
         {
             // Check the index range.
             if (index < 0 || index >= carryWeapons.Count)
@@ -168,7 +168,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             return removedWeapon;
         }
 
-        public IWeapon RemoveWeapon(string id)
+        public Weapon RemoveWeapon(string id)
         {
             for (int i = 0; i < _carryWeapons.Count; i++)
             {
@@ -229,7 +229,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             throw new InvalidOperationException($"No weapon with name {id}");
         }
 
-        public void PutOut(IWeapon weapon)
+        public void PutOut(Weapon weapon)
         {
             if (!_carryWeapons.Contains(weapon))
                 throw new InvalidOperationException($"No weapon {weapon}");
@@ -286,7 +286,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             throw new InvalidOperationException($"No weapon with name {id}");
         }
 
-        public async Task PutOutAsync(IWeapon weapon)
+        public async Task PutOutAsync(Weapon weapon)
         {
             if (!_carryWeapons.Contains(weapon))
                 throw new InvalidOperationException($"No weapon {weapon}");
