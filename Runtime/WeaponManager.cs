@@ -21,56 +21,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         /// The TimelineEventManager used by the TimelineSystem.
         /// </summary>
         private TimelineEventManager _timelineEventManager;
-
-        #endregion
         
-        #region Public Field
-
-        /// <summary>
-        /// All the weapons that should be load in awake.
-        /// </summary>
-        public List<Weapon> preLoadWeapons;
-
-        #endregion
-
-        #region Hide Public Field
-
-        public Action onInitialize
-        {
-            get
-            {
-                return _onInitialize;
-            }
-        }
-
-        public Action onFinishInitialize
-        {
-            get
-            {
-                return _onFinishInitialize;
-            }
-        }
-
-        public List<Weapon> carryWeapons
-        {
-            get
-            {
-                return _carryWeapons;
-            }
-        }
-
-        public WeaponManagerState state
-        {
-            get
-            {
-                return _state;
-            }
-        }
-
-        #endregion
-
-        #region Private Field
-
         /// <summary>
         /// The action event called when the WeaponManager starts initialization.
         /// </summary>
@@ -97,6 +48,38 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         private WeaponManagerState _state;
 
         #endregion
+        
+        #region Serialized Private Field
+
+        /// <summary>
+        /// All the weapons that should be load in awake.
+        /// </summary>
+        [SerializeField]
+        private List<Weapon> _preLoadWeapons;
+
+        /// <summary>
+        /// The dictionary that stores all the mount points that can mount weapon instance.
+        /// </summary>
+        [SerializeField]
+        private WeaponMountPointDict _weaponMountPoint;
+
+        #endregion
+
+        #region Hide Public Field
+
+        public Action onInitialize => _onInitialize;
+
+        public Action onFinishInitialize => _onFinishInitialize;
+
+        public WeaponMountPointDict weaponMountPoint => _weaponMountPoint;
+
+        public List<Weapon> carryWeapons => _carryWeapons;
+
+        public Weapon currWeapon => _currWeapon;
+
+        public WeaponManagerState state => _state;
+
+        #endregion
 
         private void Awake()
         {
@@ -108,7 +91,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             onInitialize?.Invoke();
 
             // Load all the preLoadWeapons.
-            foreach (Weapon preLoadWeapon in preLoadWeapons)
+            foreach (Weapon preLoadWeapon in _preLoadWeapons)
             {
                 AddWeapon(preLoadWeapon);
             }

@@ -1,9 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace FinTOKMAK.WeaponSystem.Runtime
 {
+    /// <summary>
+    /// The serializable dictionary that stores all the mount point that can mount weapon instance.
+    /// </summary>
+    [System.Serializable]
+    public class WeaponMountPointDict : SerializableDictionary<string, Transform>
+    {
+        
+    }
+
     /// <summary>
     /// All the state current WeaponManager is in.
     /// </summary>
@@ -47,9 +57,19 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         #endregion
         
         /// <summary>
+        /// The dictionary that stores all the mount points that can mount weapon instance.
+        /// </summary>
+        WeaponMountPointDict weaponMountPoint { get; }
+        
+        /// <summary>
         /// All the weapon current manager is carrying.
         /// </summary>
         List<WeaponType> carryWeapons { get; }
+        
+        /// <summary>
+        /// The currently using weapon.
+        /// </summary>
+        WeaponType currWeapon { get; }
         
         /// <summary>
         /// The current state of WeaponManager
