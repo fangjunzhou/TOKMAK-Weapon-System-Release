@@ -61,7 +61,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             return ScriptableObject.Instantiate(this);
         }
 
-        public IWeaponData ToRuntime()
+        public virtual IWeaponData ToRuntime()
         {
             WeaponRuntimeData runtimeData = ScriptableObject.CreateInstance<WeaponRuntimeData>();
             runtimeData.id = _id;
