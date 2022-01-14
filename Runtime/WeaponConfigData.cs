@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace FinTOKMAK.WeaponSystem.Runtime
 {
-    [CreateAssetMenu(fileName = "Weapon Config Data", menuName = "FinTOKMAK/Weapon System/Weapon Data/Config Data", order = 0)]
     public class WeaponConfigData : ScriptableObject, IWeaponData
     {
         #region Serialized Private Field
