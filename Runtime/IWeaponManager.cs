@@ -55,6 +55,11 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         Action onFinishInitialize { get; }
 
         #endregion
+
+        /// <summary>
+        /// If the WeaponManager has local authority.
+        /// </summary>
+        bool isLocal { get; set; }
         
         /// <summary>
         /// The dictionary that stores all the mount points that can mount weapon instance.
@@ -70,6 +75,11 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         /// The currently using weapon.
         /// </summary>
         WeaponType currWeapon { get; }
+        
+        /// <summary>
+        /// The index of current Weapon.
+        /// </summary>
+        int currIndex { get; }
         
         /// <summary>
         /// The current state of WeaponManager
@@ -187,11 +197,11 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         /// <summary>
         /// The method to start aiming the current weapon.
         /// </summary>
-        void StartAim();
+        void AimDown();
 
         /// <summary>
         /// The method to stop aiming the current weapon.
         /// </summary>
-        void StopAim();
+        void AimUp();
     }
 }

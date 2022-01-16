@@ -41,6 +41,11 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         /// The weapon player is currently using.
         /// </summary>
         private Weapon<ConfigType, RuntimeType> _currWeapon;
+        
+        /// <summary>
+        /// The index of _currWeapon;
+        /// </summary>
+        private int _currIndex = -1;
 
         /// <summary>
         /// The current WeaponManager's state.
@@ -50,6 +55,12 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         #endregion
         
         #region Serialized Private Field
+        
+        /// <summary>
+        /// If the current WeaponManager has local authority.
+        /// </summary>
+        [SerializeField]
+        private bool _isLocal = true;
 
         /// <summary>
         /// All the weapons that should be load in awake.
@@ -67,6 +78,12 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 
         #region Hide Public Field
 
+        public bool isLocal
+        {
+            get => _isLocal;
+            set => _isLocal = value;
+        }
+
         public Action onInitialize => _onInitialize;
 
         public Action onFinishInitialize => _onFinishInitialize;
@@ -76,6 +93,8 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         public List<Weapon<ConfigType, RuntimeType>> carryWeapons => _carryWeapons;
 
         public Weapon<ConfigType, RuntimeType> currWeapon => _currWeapon;
+
+        public int currIndex => _currIndex;
 
         public WeaponManagerState state => _state;
 
@@ -177,7 +196,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             }
             
             // When the weapon is already in use, refuse to put the weapon out.
-            if (_currWeapon != null && _currWeapon.id == _carryWeapons[index].id)
+            if (_currWeapon != null && _currIndex == index)
             {
                 throw new InvalidOperationException("Weapon already in use.");
             }
@@ -192,6 +211,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             // Put out the weapon directly
             _carryWeapons[index].OnPutOut();
             _currWeapon = _carryWeapons[index];
+            _currIndex = index;
             
             _state = WeaponManagerState.Ready;
         }
@@ -233,7 +253,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             }
             
             // When the weapon is already in use, refuse to put the weapon out.
-            if (_currWeapon != null && _currWeapon.id == _carryWeapons[index].id)
+            if (_currWeapon != null && _currIndex == index)
             {
                 Debug.LogWarning("Weapon already in use.");
                 return;
@@ -251,6 +271,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             await _carryWeapons[index].OnPutOutAsync();
             _state = WeaponManagerState.Ready;
             _currWeapon = _carryWeapons[index];
+            _currIndex = index;
         }
 
         public async Task PutOutAsync(string id)
@@ -294,6 +315,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 
             // There's no currently using weapon.
             _currWeapon = null;
+            _currIndex = -1;
             _state = WeaponManagerState.Empty;
         }
 
@@ -312,6 +334,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 
             // No weapon being used currently.
             _currWeapon = null;
+            _currIndex = -1;
             _state = WeaponManagerState.Empty;
         }
 
@@ -359,24 +382,24 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             _currWeapon.OnReloadUp();
         }
 
-        public void StartAim()
+        public void AimDown()
         {
             if (_currWeapon == null)
             {
                 Debug.LogWarning("No weapon being used currently.");
                 return;
             }
-            _currWeapon.OnAimStart();
+            _currWeapon.OnAimDown();
         }
 
-        public void StopAim()
+        public void AimUp()
         {
             if (_currWeapon == null)
             {
                 Debug.LogWarning("No weapon being used currently.");
                 return;
             }
-            _currWeapon.OnAimStopped();
+            _currWeapon.OnAimUp();
         }
 
         #endregion

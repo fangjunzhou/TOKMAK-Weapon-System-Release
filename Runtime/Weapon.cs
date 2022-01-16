@@ -249,12 +249,12 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             
         }
 
-        public virtual void OnAimStart()
+        public virtual void OnAimDown()
         {
             
         }
 
-        public virtual void OnAimStopped()
+        public virtual void OnAimUp()
         {
             
         }

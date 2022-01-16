@@ -127,11 +127,11 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         /// <summary>
         /// The callback function called when the player start aiming.
         /// </summary>
-        void OnAimStart();
+        void OnAimDown();
 
         /// <summary>
         /// The callback function called when the player stop aiming.
         /// </summary>
-        void OnAimStopped();
+        void OnAimUp();
     }
 }
