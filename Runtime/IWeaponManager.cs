@@ -87,6 +87,21 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         WeaponManagerState state { get; }
 
         /// <summary>
+        /// If the weapon is currently able to shoot;
+        /// </summary>
+        bool able2Shoot { get; set; }
+        
+        /// <summary>
+        /// If the weapon is currently able to aim.
+        /// </summary>
+        bool able2Aim { get; set; }
+        
+        /// <summary>
+        /// If the weapon is currently able to reload.
+        /// </summary>
+        bool able2Reload { get; set; }
+
+        /// <summary>
         /// Add a new weapon to the last of carry weapon list.
         /// </summary>
         /// <param name="weapon">The IWeapon instance to add.</param>

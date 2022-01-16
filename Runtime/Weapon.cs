@@ -239,6 +239,11 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             
         }
 
+        public virtual void OnShootEnableChanged(bool enable)
+        {
+            
+        }
+
         public virtual void OnReloadDown()
         {
             
@@ -249,12 +254,22 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             
         }
 
+        public virtual void OnReloadEnableChanged(bool enable)
+        {
+            
+        }
+
         public virtual void OnAimDown()
         {
             
         }
 
         public virtual void OnAimUp()
+        {
+            
+        }
+
+        public virtual void OnAimEnableChanged(bool enable)
         {
             
         }

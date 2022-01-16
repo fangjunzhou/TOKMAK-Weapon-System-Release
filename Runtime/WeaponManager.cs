@@ -47,10 +47,30 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         /// </summary>
         private int _currIndex = -1;
 
+        #region Weapon Status
+        
         /// <summary>
         /// The current WeaponManager's state.
         /// </summary>
         private WeaponManagerState _state;
+
+        private bool _triggerDown = false;
+
+        private bool _reloadDown = false;
+
+        private bool _aimDown = false;
+
+        #endregion
+
+        #region Operation Enable
+
+        private bool _able2Shoot = true;
+
+        private bool _able2Aim = true;
+
+        private bool _able2Reload = true;
+
+        #endregion
 
         #endregion
         
@@ -97,6 +117,48 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         public int currIndex => _currIndex;
 
         public WeaponManagerState state => _state;
+
+        public bool able2Shoot
+        {
+            get => _able2Shoot;
+            set
+            {
+                // Call the shoot enable callback function.
+                if (_currWeapon != null)
+                {
+                    _currWeapon.OnShootEnableChanged(value);
+                }
+                _able2Shoot = value;
+            }
+        }
+
+        public bool able2Aim
+        {
+            get => _able2Aim;
+            set
+            {
+                // Call the aim enable callback function.
+                if (_currWeapon != null)
+                {
+                    _currWeapon.OnAimEnableChanged(value);
+                }
+                _able2Aim = value;
+            }
+        }
+
+        public bool able2Reload
+        {
+            get => _able2Reload;
+            set
+            {
+                // Call the reload enable callback function.
+                if (_currWeapon != null)
+                {
+                    _currWeapon.OnReloadEnableChanged(value);
+                }
+                _able2Reload = value;
+            }
+        }
 
         #endregion
 
@@ -344,62 +406,117 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 
         public void TriggerDown()
         {
+            if (!_able2Shoot)
+            {
+                Debug.LogWarning("Not able to shoot.");
+            }
+            
             if (_currWeapon == null)
             {
                 Debug.LogWarning("No weapon being used currently.");
                 return;
             }
+            
             _currWeapon.OnTriggerDown();
+            _triggerDown = true;
         }
 
         public void TriggerUp()
         {
+            if (!_triggerDown)
+                return;
+
+            if (!_able2Shoot)
+            {
+                _triggerDown = false;
+                return;
+            }
+            
             if (_currWeapon == null)
             {
                 Debug.LogWarning("No weapon being used currently.");
+                _triggerDown = false;
                 return;
             }
             _currWeapon.OnTriggerUp();
+            _triggerDown = false;
         }
 
         public void ReloadDown()
         {
+            if (!_able2Reload)
+            {
+                Debug.LogWarning("Not able to reload.");
+            }
+            
             if (_currWeapon == null)
             {
                 Debug.LogWarning("No weapon being used currently.");
                 return;
             }
+            
             _currWeapon.OnReloadDown();
+            _reloadDown = true;
         }
 
         public void ReloadUp()
         {
+            if (!_reloadDown)
+                return;
+
+            if (!_able2Reload)
+            {
+                _reloadDown = false;
+                return;
+            }
+            
             if (_currWeapon == null)
             {
                 Debug.LogWarning("No weapon being used currently.");
+                _reloadDown = false;
                 return;
             }
+            
             _currWeapon.OnReloadUp();
+            _reloadDown = false;
         }
 
         public void AimDown()
         {
+            if (!_able2Aim)
+            {
+                Debug.LogWarning("Not able to aim.");
+            }
+            
             if (_currWeapon == null)
             {
                 Debug.LogWarning("No weapon being used currently.");
                 return;
             }
+            
             _currWeapon.OnAimDown();
+            _aimDown = true;
         }
 
         public void AimUp()
         {
+            if (!_aimDown)
+                return;
+
+            if (!_able2Aim)
+            {
+                _aimDown = false;
+                return;
+            }
+            
             if (_currWeapon == null)
             {
                 Debug.LogWarning("No weapon being used currently.");
+                _aimDown = false;
                 return;
             }
             _currWeapon.OnAimUp();
+            _aimDown = false;
         }
 
         #endregion

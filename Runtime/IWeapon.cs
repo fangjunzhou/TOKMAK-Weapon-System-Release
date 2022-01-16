@@ -115,6 +115,12 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         void OnTriggerUp();
 
         /// <summary>
+        /// Callback function called when the WeaponManager's _able2Shoot changed.
+        /// </summary>
+        /// <param name="enable">the new _able2Shoot value.</param>
+        void OnShootEnableChanged(bool enable);
+
+        /// <summary>
         /// Callback function called when the weapon reload key is pressed down.
         /// </summary>
         void OnReloadDown();
@@ -125,6 +131,12 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         void OnReloadUp();
 
         /// <summary>
+        /// Callback function called when the WeaponManager's _able2Reload changed.
+        /// </summary>
+        /// <param name="enable">the new _able2Reload value.</param>
+        void OnReloadEnableChanged(bool enable);
+
+        /// <summary>
         /// The callback function called when the player start aiming.
         /// </summary>
         void OnAimDown();
@@ -133,5 +145,11 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         /// The callback function called when the player stop aiming.
         /// </summary>
         void OnAimUp();
+
+        /// <summary>
+        /// The callback function called when the WeaponManager's _able2Aim changed.
+        /// </summary>
+        /// <param name="enable">the new _able2Aim value.</param>
+        void OnAimEnableChanged(bool enable);
     }
 }
