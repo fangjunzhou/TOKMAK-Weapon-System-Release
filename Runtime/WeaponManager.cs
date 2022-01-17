@@ -409,6 +409,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             if (!_able2Shoot)
             {
                 Debug.LogWarning("Not able to shoot.");
+                return;
             }
             
             if (_currWeapon == null)
@@ -447,6 +448,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             if (!_able2Reload)
             {
                 Debug.LogWarning("Not able to reload.");
+                return;
             }
             
             if (_currWeapon == null)
@@ -486,6 +488,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             if (!_able2Aim)
             {
                 Debug.LogWarning("Not able to aim.");
+                return;
             }
             
             if (_currWeapon == null)
