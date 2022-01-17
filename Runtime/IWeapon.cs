@@ -17,6 +17,11 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         string id { get; }
         
         /// <summary>
+        /// The index of weapon in the manager.
+        /// </summary>
+        int index { get; set; }
+        
+        /// <summary>
         /// The config data of the weapon.
         /// </summary>
         IWeaponData configData { get; }

@@ -89,7 +89,6 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         #region Serialized Private Field
 
         [SerializeField]
-        [InterfaceType(typeof(IRemoteWeaponAgent<>))]
         private MonoBehaviour _remoteAgent;
 
         /// <summary>
@@ -114,8 +113,16 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 
         #region Hide Public Field
 
-        public IRemoteWeaponAgent<Weapon<ConfigType, RuntimeType>> weaponAgent =>
-            (IRemoteWeaponAgent<Weapon<ConfigType, RuntimeType>>) _remoteAgent;
+        public IRemoteWeaponAgent<Weapon<ConfigType, RuntimeType>> weaponAgent
+        {
+            get
+            {
+                var _remoteAgent1 = _remoteAgent as IRemoteWeaponAgent<Weapon<ConfigType, RuntimeType>>;
+                if (_remoteAgent1 == null)
+                    throw new InvalidCastException("Remote Agent not implement IRemoteWeaponAgent interface.");
+                return _remoteAgent1;
+            }
+        }
 
         public bool isLocal
         {
@@ -211,6 +218,9 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             _timelineSystem = gameObject.GetComponent<TimelineSystem.Runtime.TimelineSystem>();
             _timelineEventManager = gameObject.GetComponent<TimelineEventManager>();
             
+            // Initialize WeaponManager
+            weaponAgent.manager = this;
+            
             // Start initialization.
             onInitialize?.Invoke();
 
@@ -257,6 +267,8 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             weaponInstance.weaponManager = this;
             weaponInstance.timelineSystem = _timelineSystem;
             weaponInstance.timelineEventManager = _timelineEventManager;
+            
+            UpdateWeaponIndex();
 
             // Initialize the weapon.
             weaponInstance.OnInitialize();
@@ -272,6 +284,9 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 
             Weapon<ConfigType, RuntimeType> removedWeapon = _carryWeapons[index];
             _carryWeapons.RemoveAt(index);
+            
+            UpdateWeaponIndex();
+            
             return removedWeapon;
         }
 
@@ -582,6 +597,21 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         }
 
         #endregion
+
+        #endregion
+
+        #region Private Methods
+
+        /// <summary>
+        /// Update the index of all the carry Weapons.
+        /// </summary>
+        private void UpdateWeaponIndex()
+        {
+            for (int i = 0; i < _carryWeapons.Count; i++)
+            {
+                _carryWeapons[i].index = i;
+            }
+        }
 
         #endregion
     }

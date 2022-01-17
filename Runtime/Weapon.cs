@@ -12,6 +12,8 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 
         public string id => _configData.id;
 
+        public int index { get; set; }
+
         public IWeaponData configData => _configData;
 
         public IWeaponData runtimeData => _runtimeData;
@@ -110,6 +112,16 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         {
             _timelineEventManager.UnRegisterEvent(_finishPutoutEvent, WeaponPutoutEvent);
             _timelineEventManager.UnRegisterEvent(_finishPutinEvent, WeaponPutinEvent);
+        }
+
+        /// <summary>
+        /// The method to call a Weapon RPC method.
+        /// </summary>
+        /// <param name="methodName">The method name.</param>
+        /// <param name="methodParams">The method parameters.</param>
+        protected void CallRPC(string methodName, object[] methodParams)
+        {
+            _weaponManager.weaponAgent.CallRPC(index, methodName, methodParams);
         }
 
         #endregion
