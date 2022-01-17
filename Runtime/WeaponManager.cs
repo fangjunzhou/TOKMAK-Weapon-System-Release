@@ -72,6 +72,18 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 
         #endregion
 
+        #region Event Hook
+
+        private Action<int> _putOutWeaponEvent;
+
+        private Action<int> _asyncPutOutWepaonEvent;
+
+        private Action _putInWeaponEvent;
+
+        private Action _asyncPutInWeaponEvent;
+
+        #endregion
+
         #endregion
         
         #region Serialized Private Field
@@ -158,6 +170,30 @@ namespace FinTOKMAK.WeaponSystem.Runtime
                 }
                 _able2Reload = value;
             }
+        }
+
+        public Action<int> putOutWeaponEvent
+        {
+            get => _putOutWeaponEvent;
+            set => _putOutWeaponEvent = value;
+        }
+
+        public Action<int> asyncPutOutWeaponEvent
+        {
+            get => _asyncPutOutWepaonEvent;
+            set => _asyncPutOutWepaonEvent = value;
+        }
+
+        public Action putInWeaponEvent
+        {
+            get => _putInWeaponEvent;
+            set => _putInWeaponEvent = value;
+        }
+
+        public Action asyncPutInWeaponEvent
+        {
+            get => _asyncPutInWeaponEvent;
+            set => _asyncPutInWeaponEvent = value;
         }
 
         #endregion
@@ -275,6 +311,9 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             _currWeapon = _carryWeapons[index];
             _currIndex = index;
             
+            // Invoke the event
+            _putOutWeaponEvent?.Invoke(index);
+            
             _state = WeaponManagerState.Ready;
         }
 
@@ -329,11 +368,16 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             }
 
             _state = WeaponManagerState.PuttingOut;
+            
             // Put out the weapon directly
             await _carryWeapons[index].OnPutOutAsync();
-            _state = WeaponManagerState.Ready;
             _currWeapon = _carryWeapons[index];
             _currIndex = index;
+            
+            // Invoke the event.
+            _asyncPutOutWepaonEvent?.Invoke(index);
+            
+            _state = WeaponManagerState.Ready;
         }
 
         public async Task PutOutAsync(string id)
@@ -378,6 +422,10 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             // There's no currently using weapon.
             _currWeapon = null;
             _currIndex = -1;
+            
+            // Invoke the event.
+            _putInWeaponEvent?.Invoke();
+            
             _state = WeaponManagerState.Empty;
         }
 
@@ -397,6 +445,10 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             // No weapon being used currently.
             _currWeapon = null;
             _currIndex = -1;
+            
+            // Invoke the event
+            _asyncPutInWeaponEvent?.Invoke();
+            
             _state = WeaponManagerState.Empty;
         }
 

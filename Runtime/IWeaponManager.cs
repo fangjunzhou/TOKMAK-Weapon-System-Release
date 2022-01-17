@@ -102,6 +102,26 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         bool able2Reload { get; set; }
 
         /// <summary>
+        /// The action event to put out a weapon.
+        /// </summary>
+        Action<int> putOutWeaponEvent { get; set; }
+        
+        /// <summary>
+        /// The action event to async put out a weapon.
+        /// </summary>
+        Action<int> asyncPutOutWeaponEvent { get; set; }
+        
+        /// <summary>
+        /// The action event to put in a weapon.
+        /// </summary>
+        Action putInWeaponEvent { get; set; }
+        
+        /// <summary>
+        /// The action event to async put in a weapon.
+        /// </summary>
+        Action asyncPutInWeaponEvent { get; set; }
+
+        /// <summary>
         /// Add a new weapon to the last of carry weapon list.
         /// </summary>
         /// <param name="weapon">The IWeapon instance to add.</param>
