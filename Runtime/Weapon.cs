@@ -119,7 +119,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         /// </summary>
         /// <param name="methodName">The method name.</param>
         /// <param name="methodParams">The method parameters.</param>
-        protected void CallRPC(string methodName, object[] methodParams)
+        protected void CallRPC(string methodName, params object[] methodParams)
         {
             _weaponManager.weaponAgent.CallRPC(index, methodName, methodParams);
         }
