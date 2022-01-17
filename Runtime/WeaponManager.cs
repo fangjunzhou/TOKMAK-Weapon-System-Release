@@ -87,7 +87,11 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         #endregion
         
         #region Serialized Private Field
-        
+
+        [SerializeField]
+        [InterfaceType(typeof(IRemoteWeaponAgent<>))]
+        private MonoBehaviour _remoteAgent;
+
         /// <summary>
         /// If the current WeaponManager has local authority.
         /// </summary>
@@ -109,6 +113,9 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         #endregion
 
         #region Hide Public Field
+
+        public IRemoteWeaponAgent<Weapon<ConfigType, RuntimeType>> weaponAgent =>
+            (IRemoteWeaponAgent<Weapon<ConfigType, RuntimeType>>) _remoteAgent;
 
         public bool isLocal
         {

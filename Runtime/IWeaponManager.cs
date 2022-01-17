@@ -55,6 +55,8 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         Action onFinishInitialize { get; }
 
         #endregion
+        
+        IRemoteWeaponAgent<WeaponType> weaponAgent { get; }
 
         /// <summary>
         /// If the WeaponManager has local authority.
