@@ -38,7 +38,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 
         #endregion
 
-        #region Private Field
+        #region Protected Field
 
         #region Weapon Data
         
@@ -47,11 +47,11 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         
         protected RuntimeType _runtimeData;
         
-        private WeaponManager<ConfigType, RuntimeType> _weaponManager;
+        protected WeaponManager<ConfigType, RuntimeType> _weaponManager;
 
-        private TimelineSystem.Runtime.TimelineSystem _timelineSystem;
+        protected TimelineSystem.Runtime.TimelineSystem _timelineSystem;
 
-        private TimelineEventManager _timelineEventManager;
+        protected TimelineEventManager _timelineEventManager;
 
         #endregion
 
