@@ -104,7 +104,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 
         #region Private Field
 
-        private Dictionary<string, Action<IEventData>> _audioActions;
+        private Dictionary<string, Action<IEventData>> _audioActions = new Dictionary<string, Action<IEventData>>();
 
         #endregion
 
