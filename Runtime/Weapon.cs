@@ -1,11 +1,28 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using AudioSystem.Runtime;
 using FinTOKMAK.EventSystem.Runtime;
 using FinTOKMAK.TimelineSystem.Runtime;
 using UnityEngine;
 
 namespace FinTOKMAK.WeaponSystem.Runtime
 {
+    [System.Serializable]
+    public class WeaponAudioEventConfig
+    {
+        /// <summary>
+        /// The timeline event that trigger the audio.
+        /// </summary>
+        [TimelineEvent]
+        public string eventName;
+
+        /// <summary>
+        /// The audio config of the audio to play.
+        /// </summary>
+        public AudioConfig audioConfig;
+    }
+    
     public class Weapon<ConfigType, RuntimeType> : ScriptableObject, IWeapon<Weapon<ConfigType, RuntimeType>> where ConfigType : WeaponConfigData where RuntimeType : WeaponRuntimeData
     {
         #region Hide Public Field
@@ -44,7 +61,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         
         [SerializeField]
         protected ConfigType _configData;
-        
+
         protected RuntimeType _runtimeData;
         
         protected WeaponManager<ConfigType, RuntimeType> _weaponManager;
@@ -85,6 +102,12 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 
         #endregion
 
+        #region Private Field
+
+        private Dictionary<string, Action<IEventData>> _audioActions;
+
+        #endregion
+
         #region Protected Methods
 
         /// <summary>
@@ -101,6 +124,10 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         /// </summary>
         protected virtual void RegisterTimelineEvents()
         {
+            foreach (string eventNames in _audioActions.Keys)
+            {
+                _timelineEventManager.RegisterEvent(eventNames, _audioActions[eventNames]);
+            }
             _timelineEventManager.RegisterEvent(_finishPutoutEvent, WeaponPutoutEvent);
             _timelineEventManager.RegisterEvent(_finishPutinEvent, WeaponPutinEvent);
         }
@@ -110,6 +137,10 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         /// </summary>
         protected virtual void UnregisterTimelineEvents()
         {
+            foreach (string eventNames in _audioActions.Keys)
+            {
+                _timelineEventManager.UnRegisterEvent(eventNames, _audioActions[eventNames]);
+            }
             _timelineEventManager.UnRegisterEvent(_finishPutoutEvent, WeaponPutoutEvent);
             _timelineEventManager.UnRegisterEvent(_finishPutinEvent, WeaponPutinEvent);
         }
@@ -126,6 +157,23 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 
         #endregion
 
+        #region Private Methods
+
+        private void InitAudioPlayers()
+        {
+            foreach (WeaponAudioEventConfig config in _configData.audioEventConfigs)
+            {
+                _configData.playerPrefab.audioConfig = config.audioConfig;
+                AudioPlayer playerInstance = Instantiate(_configData.playerPrefab);
+                _audioActions.Add(config.eventName, data =>
+                {
+                    playerInstance.Play();
+                });
+            }
+        }
+
+        #endregion
+        
         #region Timeline Events
 
         /// <summary>

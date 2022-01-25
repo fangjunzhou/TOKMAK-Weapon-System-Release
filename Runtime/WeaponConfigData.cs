@@ -1,4 +1,6 @@
-﻿using FinTOKMAK.TimelineSystem.Runtime;
+﻿using System.Collections.Generic;
+using AudioSystem.Runtime;
+using FinTOKMAK.TimelineSystem.Runtime;
 using UnityEngine;
 
 namespace FinTOKMAK.WeaponSystem.Runtime
@@ -42,6 +44,16 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         /// The timeline played when put in the weapon.
         /// </summary>
         public Timeline putinTimeline => _putinTimeline;
+        
+        /// <summary>
+        /// The audio config of the weapon.
+        /// </summary>
+        public List<WeaponAudioEventConfig> audioEventConfigs;
+
+        /// <summary>
+        /// The audio player prefab weapon use.
+        /// </summary>
+        public AudioPlayer playerPrefab;
 
         #endregion
         
