@@ -55,6 +55,11 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         /// </summary>
         public AudioPlayer playerPrefab;
 
+        /// <summary>
+        /// The mount point of all the audio players.
+        /// </summary>
+        public string audioMountPoint;
+
         #endregion
         
         #region IWeaponData Interface
