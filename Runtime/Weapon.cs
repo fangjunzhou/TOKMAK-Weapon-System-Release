@@ -203,6 +203,8 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         {
             InitTSC();
             
+            InitAudioPlayers();
+            
             // Convert the WeaponConfigData to the WeaponRuntimeData
             _runtimeData = (RuntimeType) _configData.ToRuntime();
 
