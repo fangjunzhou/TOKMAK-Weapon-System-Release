@@ -157,7 +157,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 
         #endregion
 
-        #region Private Methods
+        #region Audio Player
 
         private void InitAudioPlayers()
         {
@@ -169,8 +169,19 @@ namespace FinTOKMAK.WeaponSystem.Runtime
                 _audioActions.Add(config.eventName, data =>
                 {
                     playerInstance.Play();
+                    CallRPC("InvokeAudioEvent", config.eventName);
                 });
             }
+        }
+
+        /// <summary>
+        /// The RPC method to invoke an audio event.
+        /// </summary>
+        /// <param name="eventName">the name of the audio event.</param>
+        public void InvokeAudioEvent(string eventName)
+        {
+            // Play the fire audio
+            _timelineEventManager.InvokeEvent(eventName, new EventData());
         }
 
         #endregion
