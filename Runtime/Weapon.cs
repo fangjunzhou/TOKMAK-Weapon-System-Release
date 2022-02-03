@@ -163,8 +163,8 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         {
             foreach (WeaponAudioEventConfig config in _configData.audioEventConfigs)
             {
-                _configData.playerPrefab.audioConfig = config.audioConfig;
-                AudioPlayer playerInstance = Instantiate(_configData.playerPrefab,
+                _configData.audioPlayerPrefab.audioConfig = config.audioConfig;
+                AudioPlayer playerInstance = Instantiate(_configData.audioPlayerPrefab,
                     _weaponManager.weaponMountPoint[_configData.audioMountPoint]);
                 _audioActions.Add(config.eventName, data =>
                 {

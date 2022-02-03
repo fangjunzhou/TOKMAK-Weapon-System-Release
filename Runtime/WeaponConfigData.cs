@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using AudioSystem.Runtime;
 using FinTOKMAK.TimelineSystem.Runtime;
+using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace FinTOKMAK.WeaponSystem.Runtime
 {
@@ -13,6 +15,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         /// The id of the weapon.
         /// </summary>
         [SerializeField]
+        [BoxGroup("Info")]
         private string _id;
 
         #region Timelines
@@ -21,12 +24,14 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         /// The timeline played when put out the weapon.
         /// </summary>
         [SerializeField]
+        [BoxGroup("Timeline")]
         private Timeline _putoutTimeline;
 
         /// <summary>
         /// The timeline played when put in the weapon.
         /// </summary>
         [SerializeField]
+        [BoxGroup("Timeline")]
         private Timeline _putinTimeline;
 
         #endregion
@@ -48,16 +53,20 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         /// <summary>
         /// The audio config of the weapon.
         /// </summary>
+        [BoxGroup("Audio")]
         public List<WeaponAudioEventConfig> audioEventConfigs;
 
         /// <summary>
         /// The audio player prefab weapon use.
         /// </summary>
-        public AudioPlayer playerPrefab;
+        [FormerlySerializedAs("playerPrefab")]
+        [BoxGroup("Audio")]
+        public AudioPlayer audioPlayerPrefab;
 
         /// <summary>
         /// The mount point of all the audio players.
         /// </summary>
+        [BoxGroup("Audio")]
         public string audioMountPoint;
 
         #endregion
