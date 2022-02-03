@@ -67,7 +67,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         /// The mount point of all the audio players.
         /// </summary>
         [BoxGroup("Audio")]
-        public string audioMountPoint;
+        public string audioMountPoint = "audio";
 
         #endregion
         
