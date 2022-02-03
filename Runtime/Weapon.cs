@@ -5,6 +5,7 @@ using AudioSystem.Runtime;
 using FinTOKMAK.EventSystem.Runtime;
 using FinTOKMAK.TimelineSystem.Runtime;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace FinTOKMAK.WeaponSystem.Runtime
 {
@@ -84,20 +85,6 @@ namespace FinTOKMAK.WeaponSystem.Runtime
         /// </summary>
         private TaskCompletionSource<bool> _finishPutinSource;
 
-        /// <summary>
-        /// The TimelineEvent called when finish weapon put out.
-        /// </summary>
-        [SerializeField]
-        [TimelineEvent]
-        private string _finishPutoutEvent;
-
-        /// <summary>
-        /// The TimelineEvent called when finish weapon put in.
-        /// </summary>
-        [SerializeField]
-        [TimelineEvent]
-        private string _finishPutinEvent;
-
         #endregion
 
         #endregion
@@ -128,8 +115,8 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             {
                 _timelineEventManager.RegisterEvent(eventNames, _audioActions[eventNames]);
             }
-            _timelineEventManager.RegisterEvent(_finishPutoutEvent, WeaponPutoutEvent);
-            _timelineEventManager.RegisterEvent(_finishPutinEvent, WeaponPutinEvent);
+            _timelineEventManager.RegisterEvent(_configData.finishPutoutEvent, WeaponPutoutEvent);
+            _timelineEventManager.RegisterEvent(_configData.finishPutinEvent, WeaponPutinEvent);
         }
 
         /// <summary>
@@ -141,8 +128,8 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             {
                 _timelineEventManager.UnRegisterEvent(eventNames, _audioActions[eventNames]);
             }
-            _timelineEventManager.UnRegisterEvent(_finishPutoutEvent, WeaponPutoutEvent);
-            _timelineEventManager.UnRegisterEvent(_finishPutinEvent, WeaponPutinEvent);
+            _timelineEventManager.UnRegisterEvent(_configData.finishPutoutEvent, WeaponPutoutEvent);
+            _timelineEventManager.UnRegisterEvent(_configData.finishPutinEvent, WeaponPutinEvent);
         }
 
         /// <summary>

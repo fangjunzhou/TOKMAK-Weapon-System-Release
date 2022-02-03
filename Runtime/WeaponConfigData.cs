@@ -36,6 +36,24 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 
         #endregion
 
+        #region Events
+
+        /// <summary>
+        /// The TimelineEvent called when finish weapon put out.
+        /// </summary>
+        [TimelineEvent]
+        [BoxGroup("Events")]
+        public string finishPutoutEvent = "root/WEAPON/FINISH_PUT_OUT";
+
+        /// <summary>
+        /// The TimelineEvent called when finish weapon put in.
+        /// </summary>
+        [TimelineEvent]
+        [BoxGroup("Events")]
+        public string finishPutinEvent = "root/WEAPON/FINISH_PUT_IN";
+
+        #endregion
+
         #endregion
 
         #region Public Field
