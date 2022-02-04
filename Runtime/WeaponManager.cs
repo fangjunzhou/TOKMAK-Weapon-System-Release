@@ -309,6 +309,9 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 
         public void PutOut(int index)
         {
+            if (_state == WeaponManagerState.PuttingIn || _state == WeaponManagerState.PuttingOut)
+                return;
+            
             // Handle the index out of range exception.
             if (index < 0 || index >= _carryWeapons.Count)
             {
@@ -375,6 +378,9 @@ namespace FinTOKMAK.WeaponSystem.Runtime
                 throw new IndexOutOfRangeException("The index of weapon is out of the range of carry weapons.");
             }
             
+            if (_state == WeaponManagerState.PuttingIn || _state == WeaponManagerState.PuttingOut)
+                return;
+            
             // When the weapon is already in use, refuse to put the weapon out.
             if (_currWeapon != null && _currIndex == index)
             {
@@ -438,6 +444,9 @@ namespace FinTOKMAK.WeaponSystem.Runtime
                 return;
             }
             
+            if (_state == WeaponManagerState.PuttingIn || _state == WeaponManagerState.PuttingOut)
+                return;
+            
             // Put in current weapon.
             _currWeapon.OnPutIn();
 
@@ -458,6 +467,9 @@ namespace FinTOKMAK.WeaponSystem.Runtime
                 Debug.LogWarning("No weapon being used currently.");
                 return;
             }
+            
+            if (_state == WeaponManagerState.PuttingIn || _state == WeaponManagerState.PuttingOut)
+                return;
             
             _state = WeaponManagerState.PuttingIn;
             
