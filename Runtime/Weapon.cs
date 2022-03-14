@@ -288,6 +288,7 @@ namespace FinTOKMAK.WeaponSystem.Runtime
                 throw new InvalidOperationException($"No mount point name {mountPoint}");
             }
             instance.transform.SetParent(_weaponManager.weaponMountPoint[mountPoint]);
+            instance.transform.localScale = new Vector3(1, 1, 1);
         }
 
         public virtual void OnTriggerDown()
