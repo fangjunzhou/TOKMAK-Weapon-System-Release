@@ -70,6 +70,8 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 
         private bool _able2Reload = true;
 
+        private bool _able2PutInOut = true;
+
         #endregion
 
         #region Event Hook
@@ -184,6 +186,12 @@ namespace FinTOKMAK.WeaponSystem.Runtime
                 }
                 _able2Reload = value;
             }
+        }
+
+        public bool able2PutInOut
+        {
+            get => _able2PutInOut;
+            set => _able2PutInOut = value;
         }
 
         public Action<int> putOutWeaponEvent
@@ -312,6 +320,9 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             if (_state == WeaponManagerState.PuttingIn || _state == WeaponManagerState.PuttingOut)
                 return;
             
+            if (!_able2PutInOut)
+                return;
+            
             // Handle the index out of range exception.
             if (index < 0 || index >= _carryWeapons.Count)
             {
@@ -381,6 +392,9 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             if (_state == WeaponManagerState.PuttingIn || _state == WeaponManagerState.PuttingOut)
                 return;
             
+            if (!_able2PutInOut)
+                return;
+            
             // When the weapon is already in use, refuse to put the weapon out.
             if (_currWeapon != null && _currIndex == index)
             {
@@ -447,6 +461,9 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             if (_state == WeaponManagerState.PuttingIn || _state == WeaponManagerState.PuttingOut)
                 return;
             
+            if (!_able2PutInOut)
+                return;
+            
             // Put in current weapon.
             _currWeapon.OnPutIn();
 
@@ -469,6 +486,9 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             }
             
             if (_state == WeaponManagerState.PuttingIn || _state == WeaponManagerState.PuttingOut)
+                return;
+            
+            if (!_able2PutInOut)
                 return;
             
             _state = WeaponManagerState.PuttingIn;
