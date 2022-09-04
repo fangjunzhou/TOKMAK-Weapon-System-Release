@@ -512,12 +512,6 @@ namespace FinTOKMAK.WeaponSystem.Runtime
 
         public void TriggerDown()
         {
-            if (!_able2Shoot)
-            {
-                Debug.LogWarning("Not able to shoot.");
-                return;
-            }
-            
             if (_currWeapon == null)
             {
                 Debug.LogWarning("No weapon being used currently.");
@@ -533,12 +527,6 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             if (!_triggerDown)
                 return;
 
-            if (!_able2Shoot)
-            {
-                _triggerDown = false;
-                return;
-            }
-            
             if (_currWeapon == null)
             {
                 Debug.LogWarning("No weapon being used currently.");
