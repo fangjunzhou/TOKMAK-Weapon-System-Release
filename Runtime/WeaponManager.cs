@@ -347,6 +347,9 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             _currWeapon = _carryWeapons[index];
             _currIndex = index;
             
+            // Sync able2Shoot var.
+            _currWeapon.OnShootEnableChanged(_able2Shoot);
+            
             // Invoke the event
             _putOutWeaponEvent?.Invoke(index);
             
@@ -415,6 +418,9 @@ namespace FinTOKMAK.WeaponSystem.Runtime
             await _carryWeapons[index].OnPutOutAsync();
             _currWeapon = _carryWeapons[index];
             _currIndex = index;
+            
+            // Sync able2Shoot var.
+            _currWeapon.OnShootEnableChanged(_able2Shoot);
             
             // Invoke the event.
             _asyncPutOutWepaonEvent?.Invoke(index);
